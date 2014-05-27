@@ -75,5 +75,34 @@ namespace AboutExceptions
             return new Cylinder(r, h);
         }
 
+        private Cylinder PromptForCylinder(int retries)
+        {
+
+            Cylinder result = null;
+            do
+            {
+                // try (attempt) to get a valid cylinder from the user
+                try
+                {
+                    result = PromptForCylinder();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error- " + ex.Message);
+                    Console.WriteLine("You have " + retries + " more attempts left..");
+                    retries--; // subtract 1 from the retries
+
+                }
+
+            } while (result != null && retries > 0);
+            // very last chance..
+            if (result == null)
+                result = PromptForCylinder();
+            return result;
+
+
+        }
+
     }
 }
